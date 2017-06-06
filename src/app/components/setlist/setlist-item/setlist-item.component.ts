@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Song } from '../../models/song.model';
+import {Song} from '../../../models/song.model';
 
 @Component({
   selector: 'app-setlist-item',

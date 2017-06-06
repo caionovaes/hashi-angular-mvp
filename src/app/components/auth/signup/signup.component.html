@@ -1,0 +1,13 @@
+<form class="login-form" (ngSubmit)="onSignup(f)" #f="ngForm">
+
+  <md-input-container>
+    <input mdInput placeholder="E-mail" type="email" id="email" name="email" ngModel>
+  </md-input-container>
+
+  <md-input-container>
+    <input mdInput placeholder="Senha" type="password" id="password" name="password" ngModel>
+  </md-input-container>
+
+  <button md-raised-button color="accent" type="submit">Cadastrar</button>
+
+</form>
