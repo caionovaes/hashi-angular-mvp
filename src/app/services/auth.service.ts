@@ -8,6 +8,7 @@ export class AuthService {
   token: string;
 
   constructor(private router: Router, private snackBar: MdSnackBar) {
+    this.token = null;
   }
 
   signupUser(email: string, password: string) {
@@ -67,7 +68,7 @@ export class AuthService {
               message = 'Senha incorreta, tente novamente.';
               break;
             case 'auth/user-not-found':
-              message = 'Usuário não encontrado, confirme seu e-mail.';
+              message = 'E-mail não cadastrado, confirme seu e-mail.';
               break;
           }
 

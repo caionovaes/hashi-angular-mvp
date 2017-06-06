@@ -1,10 +1,13 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {SignupComponent} from './components/auth/signup/signup.component';
+import {LoungeComponent} from './components/lounge/lounge.component';
 import {SigninComponent} from './components/auth/signin/signin.component';
+import {SignupComponent} from './components/auth/signup/signup.component';
+import {AuthGuard} from './services/auth-guard.service';
 
 const appRoutes: Routes = [
-  {path: '', redirectTo: '/signin', pathMatch: 'full'},
+  {path: '', redirectTo: '/lounge', pathMatch: 'full'},
+  {path: 'lounge', component: LoungeComponent, canActivate: [AuthGuard]},
   {path: 'signin', component: SigninComponent},
   {path: 'signup', component: SignupComponent},
 ];
