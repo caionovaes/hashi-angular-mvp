@@ -16,6 +16,8 @@ import { LoungeComponent } from './lounge/lounge.component';
 import { GigComponent } from './gig/gig.component';
 import { SetlistComponent } from './setlist/setlist.component';
 import { GigNewComponent } from './gig-new/gig-new.component';
+import { SetlistItemComponent } from './setlist/setlist-item/setlist-item.component';
+import { SetlistAddComponent } from './setlist/setlist-add/setlist-add.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { GigNewComponent } from './gig-new/gig-new.component';
     LoungeComponent,
     GigComponent,
     SetlistComponent,
-    GigNewComponent
+    GigNewComponent,
+    SetlistItemComponent,
+    SetlistAddComponent
   ],
   imports: [
     BrowserModule,

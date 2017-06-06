@@ -1,7 +1,4 @@
 <md-list>
-  <md-list-item *ngFor="let song of songs">
-    {{song.name}} by {{song.composer}}
-    {{song.likes}}
-    <div *ngIf="song.played"></div>
-  </md-list-item>
+  <app-setlist-add></app-setlist-add>
+  <app-setlist-item *ngFor="let song of songs" [song]="song"></app-setlist-item>
 </md-list>
