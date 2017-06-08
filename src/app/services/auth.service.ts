@@ -1,7 +1,7 @@
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase';
-import {Injectable} from '@angular/core';
-import {MdSnackBar} from '@angular/material';
+import { Injectable } from '@angular/core';
+import { MdSnackBar } from '@angular/material';
 
 @Injectable()
 export class AuthService {
