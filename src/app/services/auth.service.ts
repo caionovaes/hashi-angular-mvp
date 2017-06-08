@@ -1,22 +1,49 @@
-import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
-import * as firebase from 'firebase/app';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
+import 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnInit, OnDestroy {
   token: string;
+  idTokenSub: Subscription;
 
-  constructor(private router: Router, private snackBar: MdSnackBar) {
+  constructor(private afAuth: AngularFireAuth, private router: Router, private snackBar: MdSnackBar) {
+  }
+
+  ngOnInit(): void {
     this.token = null;
+    this.idTokenSub = this.afAuth.idToken.subscribe(
+      (user) => {
+        if (user) {
+          console.log('so we got somethin... lets do it!');
+          this.router.navigate(['/signin'])
+        } else {
+          console.log('wut? empty user... whatever');
+          this.token = null;
+          this.router.navigate(['/signin'])
+        }
+      },
+      (error) => {
+        console.log('some bizarre error has ocurred');
+        this.token = null;
+        this.router.navigate(['/signin'])
+      },
+      () => {
+        console.log('authentication monitoring completed, I guess')
+        this.token = null;
+      }
+    );
   }
 
   signupUser(email: string, password: string) {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then(
         response => this.snackBar.open('Conta criada com sucesso.', '', {
           duration: 1000
-        }).afterDismissed().subscribe()
+        })
       )
       .catch(
         error => {
@@ -35,21 +62,18 @@ export class AuthService {
 
           this.snackBar.open(message, '', {
             duration: 1000
-          }).afterDismissed().subscribe();
+          });
         }
       );
   }
 
   signinUser(email: string, password: string) {
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    // this.logout();
+    this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(
-        // TODO: teoricamente nao precisa desse firebase auth (?)
         response => {
-          this.router.navigate(['/']);
-          firebase.auth().currentUser.getIdToken()
-            .then(
-              (token: string) => this.token = token
-            )
+          console.log('great success bra, logged in', response)
+          // this.router.navigate(['/gig']);
         }
       )
       .catch(
@@ -74,23 +98,19 @@ export class AuthService {
 
           this.snackBar.open(message, '', {
             duration: 1000
-          }).afterDismissed().subscribe();
+          })
         }
       );
   }
 
   logout() {
-    firebase.auth().signOut();
-    this.token = null;
-  }
-
-  getToken() {
-    firebase.auth().currentUser.getIdToken()
-      .then((token: string) => this.token = token);
-    return this.token;
+    this.afAuth.auth.signOut();
   }
 
   isAuthenticated() {
     return this.token != null;
+  }
+
+  ngOnDestroy(): void {
   }
 }

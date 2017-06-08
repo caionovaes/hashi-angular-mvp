@@ -1,0 +1,19 @@
+<md-toolbar color="primary">
+  <button md-icon-button [mdMenuTriggerFor]="menu">
+    <md-icon>menu</md-icon>
+  </button>
+  <md-menu #menu="mdMenu">
+    <button md-menu-item>
+      <md-icon>input</md-icon>
+      <span>Entrar</span>
+    </button>
+    <button md-menu-item>
+      <md-icon>create</md-icon>
+      <span>Cadastrar</span>
+    </button>
+    <button md-menu-item (click)="onLogoutClicked()">
+      <md-icon>highlight_off</md-icon>
+      <span>Sair</span>
+    </button>
+  </md-menu> Hashi
+</md-toolbar>

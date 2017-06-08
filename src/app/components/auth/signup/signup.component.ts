@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
-import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,12 +10,14 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private snackBar: MdSnackBar) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/lounge']);
+      this.router.navigate(['/gig'])
+        .then(response => {console.log('common gig')})
+        .catch(error => {console.log('common gig error')});
     }
   }
 
