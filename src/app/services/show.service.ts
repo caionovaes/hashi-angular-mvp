@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class GigService {
+export class ShowService {
 
-  constructor() { }
-
+  constructor() {
+  }
 }

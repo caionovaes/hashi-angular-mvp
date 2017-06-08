@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AuthService {
@@ -16,12 +16,11 @@ export class AuthService {
       .then(
         response => this.snackBar.open('Conta criada com sucesso.', '', {
           duration: 1000
-        })
+        }).afterDismissed().subscribe()
       )
       .catch(
         error => {
           let message = 'O que está acontecendo?';
-
           switch (JSON.parse(JSON.stringify(error)).code) {
             case 'auth/invalid-email':
               message = 'Informe um e-mail válido.';
@@ -36,7 +35,7 @@ export class AuthService {
 
           this.snackBar.open(message, '', {
             duration: 1000
-          });
+          }).afterDismissed().subscribe();
         }
       );
   }
@@ -44,6 +43,7 @@ export class AuthService {
   signinUser(email: string, password: string) {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(
+        // TODO: teoricamente nao precisa desse firebase auth (?)
         response => {
           this.router.navigate(['/']);
           firebase.auth().currentUser.getIdToken()
@@ -74,7 +74,7 @@ export class AuthService {
 
           this.snackBar.open(message, '', {
             duration: 1000
-          });
+          }).afterDismissed().subscribe();
         }
       );
   }
@@ -86,9 +86,7 @@ export class AuthService {
 
   getToken() {
     firebase.auth().currentUser.getIdToken()
-      .then(
-        (token: string) => this.token = token
-      );
+      .then((token: string) => this.token = token);
     return this.token;
   }
 
