@@ -1,51 +1,34 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import 'rxjs/Rx';
 import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthService implements OnInit, OnDestroy {
+
   token: string;
+
+  performer: boolean;
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private snackBar: MdSnackBar) {
   }
 
   ngOnInit(): void {
-    this.token = null;
-    // this.afAuth.auth.subscribe(
-    //   (user) => {
-    //     if (user) {
-    //       console.log('so we got somethin... lets do it!');
-    //       this.router.navigate(['/signin'])
-    //     } else {
-    //       console.log('wut? empty user... whatever');
-    //       this.token = null;
-    //       this.router.navigate(['/signin'])
-    //     }
-    //   },
-    //   (error) => {
-    //     console.log('some bizarre error has ocurred');
-    //     this.token = null;
-    //     this.router.navigate(['/signin'])
-    //   },
-    //   () => {
-    //     console.log('authentication monitoring completed, I guess')
-    //     this.token = null;
-    //   }
-    // );
+    this.performer = false;
   }
 
   signupUser(email: string, password: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(
-        response => this.snackBar.open('Conta criada com sucesso.', '', {
-          duration: 1000
-        })
+      .then(() => {
+          this.snackBar.open('Conta criada com sucesso.', '', {duration: 1000});
+          this.router.navigate(['/signin']);
+        }
       )
       .catch(
         error => {
           let message = 'O que está acontecendo?';
+
           switch (JSON.parse(JSON.stringify(error)).code) {
             case 'auth/invalid-email':
               message = 'Informe um e-mail válido.';
@@ -58,25 +41,24 @@ export class AuthService implements OnInit, OnDestroy {
               break;
           }
 
-          this.snackBar.open(message, '', {
-            duration: 1000
-          });
+          this.snackBar.open(message, '', {duration: 1000});
         }
       );
   }
 
   signinUser(email: string, password: string) {
-    // this.logout();
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(
-        response => {
-          console.log('great success bra, logged in', response)
-          // this.router.navigate(['/gig']);
+        (user: firebase.User) => {
+          if (user.email === 'musico@hashi.com') {
+            this.performer = true;
+          }
+          this.getToken();
+          this.router.navigate(['/gig']);
         }
       )
       .catch(
         error => {
-          console.log(error);
           let message = 'O que está acontecendo?';
 
           switch (JSON.parse(JSON.stringify(error)).code) {
@@ -94,15 +76,21 @@ export class AuthService implements OnInit, OnDestroy {
               break;
           }
 
-          this.snackBar.open(message, '', {
-            duration: 1000
-          })
+          this.snackBar.open(message, '', {duration: 1000});
         }
       );
   }
 
   logout() {
     this.afAuth.auth.signOut();
+    this.router.navigate(['/signin']);
+    this.token = null;
+  }
+
+  getToken() {
+    this.afAuth.auth.currentUser.getIdToken()
+      .then((token: string) => this.token = token);
+    return this.token;
   }
 
   isAuthenticated() {

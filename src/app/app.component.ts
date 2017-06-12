@@ -8,9 +8,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 })
 export class AppComponent {
 
-  test: FirebaseListObservable<any[]>;
-
   constructor(db: AngularFireDatabase) {
-    this.test = db.list('/items');
   }
+
 }

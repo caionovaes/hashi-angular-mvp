@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../shared/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -10,13 +9,10 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/gig']);
-    }
   }
 
   onSignup(form: NgForm) {

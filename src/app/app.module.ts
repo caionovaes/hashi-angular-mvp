@@ -24,8 +24,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 export const routes: Routes = [
-  {path: '', redirectTo: '/signin', pathMatch: 'full'},
-  {path: 'gig', component: GigComponent, canActivate: [AuthGuard]},
+  {path: '', redirectTo: '/gig', pathMatch: 'full'},
+  {path: 'gig', component: GigComponent},
   {path: 'signin', component: SigninComponent},
   {path: 'signup', component: SignupComponent},
 ];
@@ -60,5 +60,4 @@ export const routes: Routes = [
 })
 
 export class AppModule {
-
 }
