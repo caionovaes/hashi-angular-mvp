@@ -15,9 +15,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/gig'])
-        .then(response => {console.log('common gig')})
-        .catch(error => {console.log('common gig error')});
+      this.router.navigate(['/gig']);
     }
   }
 

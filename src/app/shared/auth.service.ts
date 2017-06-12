@@ -2,6 +2,7 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import 'rxjs/Rx';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class AuthService implements OnInit, OnDestroy {
@@ -12,27 +13,27 @@ export class AuthService implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.token = null;
-    this.idTokenSub = this.afAuth.idToken.subscribe(
-      (user) => {
-        if (user) {
-          console.log('so we got somethin... lets do it!');
-          this.router.navigate(['/signin'])
-        } else {
-          console.log('wut? empty user... whatever');
-          this.token = null;
-          this.router.navigate(['/signin'])
-        }
-      },
-      (error) => {
-        console.log('some bizarre error has ocurred');
-        this.token = null;
-        this.router.navigate(['/signin'])
-      },
-      () => {
-        console.log('authentication monitoring completed, I guess')
-        this.token = null;
-      }
-    );
+    // this.afAuth.auth.subscribe(
+    //   (user) => {
+    //     if (user) {
+    //       console.log('so we got somethin... lets do it!');
+    //       this.router.navigate(['/signin'])
+    //     } else {
+    //       console.log('wut? empty user... whatever');
+    //       this.token = null;
+    //       this.router.navigate(['/signin'])
+    //     }
+    //   },
+    //   (error) => {
+    //     console.log('some bizarre error has ocurred');
+    //     this.token = null;
+    //     this.router.navigate(['/signin'])
+    //   },
+    //   () => {
+    //     console.log('authentication monitoring completed, I guess')
+    //     this.token = null;
+    //   }
+    // );
   }
 
   signupUser(email: string, password: string) {
