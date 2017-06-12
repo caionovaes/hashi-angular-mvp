@@ -1,14 +1,11 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { MdSnackBar } from '@angular/material';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import 'rxjs/Rx';
-import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class AuthService implements OnInit, OnDestroy {
   token: string;
-  idTokenSub: Subscription;
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private snackBar: MdSnackBar) {
   }
