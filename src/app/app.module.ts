@@ -10,10 +10,10 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './shared/auth.service';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './auth/header/header.component';
 import { AuthGuard } from './shared/auth-guard.service';
 import {
-  MdButtonModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule, MdSnackBarModule,
+  MdButtonModule, MdButtonToggleModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule, MdSnackBarModule,
   MdToolbarModule
 } from '@angular/material';
 import { GigComponent } from './gig/gig.component';
@@ -51,6 +51,7 @@ export const routes: Routes = [
     MdListModule,
     MdInputModule,
     MdButtonModule,
+    MdButtonToggleModule,
     MdToolbarModule,
     MdMenuModule,
     MdIconModule

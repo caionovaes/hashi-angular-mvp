@@ -8,13 +8,13 @@ import * as firebase from 'firebase';
 export class AuthService implements OnInit, OnDestroy {
 
   token: string;
-
   performer: boolean;
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private snackBar: MdSnackBar) {
   }
 
   ngOnInit(): void {
+    this.token = null;
     this.performer = false;
   }
 
@@ -83,8 +83,9 @@ export class AuthService implements OnInit, OnDestroy {
 
   logout() {
     this.afAuth.auth.signOut();
-    this.router.navigate(['/signin']);
     this.token = null;
+    this.performer = false;
+    this.router.navigate(['/signin']);
   }
 
   getToken() {
@@ -97,6 +98,12 @@ export class AuthService implements OnInit, OnDestroy {
     return this.token != null;
   }
 
+  isPerformer() {
+    return this.performer;
+  }
+
   ngOnDestroy(): void {
+    this.token = null;
+    this.performer = false;
   }
 }
