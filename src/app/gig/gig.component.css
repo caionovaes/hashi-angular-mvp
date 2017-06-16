@@ -11,3 +11,9 @@ md-button-toggle {
   bottom: 20px;
   right: 20px;
 }
+
+.default-template {
+  text-align: center;
+  margin: 10px 0;
+  padding: 20px;
+}

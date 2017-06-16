@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { Router } from '@angular/router';
+import { Show } from '../shared/show.model';
+import { Song } from '../shared/song.model';
 
 @Component({
   selector: 'app-gig',
@@ -11,28 +12,24 @@ import { Router } from '@angular/router';
 export class GigComponent implements OnInit {
 
   performer: boolean;
-  songs: FirebaseListObservable<any[]>;
-  live: FirebaseObjectObservable<any>;
+  show: FirebaseObjectObservable<Show>;
+  songs: FirebaseListObservable<Song[]>;
 
-  constructor(private db: AngularFireDatabase, private authService: AuthService, private router: Router) {
+  constructor(private db: AngularFireDatabase, private authService: AuthService) {
   }
 
   ngOnInit() {
     this.performer = this.authService.performer;
+    this.show = this.db.object('/show');
     this.songs = this.db.list('/show/songs');
-    this.live = this.db.object('/show/live');
-  }
-
-  onSignInClicked() {
-    this.router.navigate(['/signin']);
-  }
-
-  onSignUpClicked() {
-    this.router.navigate(['/signup']);
   }
 
   onLogoutClicked() {
     this.authService.logout();
+  }
+
+  toggleLive(live: boolean) {
+    this.show.update({live: live});
   }
 
   isAuthenticated() {

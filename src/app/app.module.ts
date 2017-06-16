@@ -13,7 +13,9 @@ import { AuthService } from './shared/auth.service';
 import { HeaderComponent } from './auth/header/header.component';
 import { AuthGuard } from './shared/auth-guard.service';
 import {
-  MdButtonModule, MdButtonToggleModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule, MdSnackBarModule,
+  MdButtonModule, MdButtonToggleModule, MdCardModule, MdDialogModule, MdIconModule, MdInputModule, MdListModule,
+  MdMenuModule,
+  MdSnackBarModule,
   MdToolbarModule
 } from '@angular/material';
 import { GigComponent } from './gig/gig.component';
@@ -22,12 +24,15 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SetlistItemComponent } from './gig/setlist-item/setlist-item.component';
+import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/gig', pathMatch: 'full'},
   {path: 'gig', component: GigComponent},
   {path: 'signin', component: SigninComponent},
   {path: 'signup', component: SignupComponent},
+  {path: 'about', component: AboutComponent}
 ];
 
 @NgModule({
@@ -36,7 +41,9 @@ export const routes: Routes = [
     HeaderComponent,
     SigninComponent,
     SignupComponent,
-    GigComponent
+    GigComponent,
+    SetlistItemComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -54,9 +61,12 @@ export const routes: Routes = [
     MdButtonToggleModule,
     MdToolbarModule,
     MdMenuModule,
-    MdIconModule
+    MdIconModule,
+    MdCardModule,
+    MdDialogModule
   ],
   providers: [AuthService, AuthGuard],
+  entryComponents: [AboutComponent],
   bootstrap: [AppComponent]
 })
 
