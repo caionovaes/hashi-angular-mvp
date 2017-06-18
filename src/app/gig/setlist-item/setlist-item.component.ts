@@ -11,9 +11,18 @@ export class SetlistItemComponent implements OnInit {
   @Input() song: Song;
   @Input() performer: boolean;
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }
 
+  getStyle() {
+    if (this.song.played) {
+      return 'lightgray';
+    } else {
+      return '';
+    }
+  }
 }

@@ -1,21 +1,27 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import 'rxjs/Rx';
+import { AuthService } from './auth.service';
 
 
 @Injectable()
 export class DataStorageService implements OnInit {
-  constructor(private http: Http) {}
+
+  constructor(private http: Http, private authService: AuthService) {
+  }
 
   ngOnInit(): void {
   }
 
-// storeRecipes() {
-  //   return this.http.put('https://ng-recipe-book.firebaseio.com/recipes.json', this.recipeService.getRecipes());
+  archiveShow() {
+
+  }
+
+  // archiveShow() {
+  //   return this.http.put('https://hashi-e420c.firebaseio.com/shows.json', this.recipeService.getRecipes());
   // }
   //
   // getRecipes() {
-  //   this.http.get('https://ng-recipe-book.firebaseio.com/recipes.json')
+  //   this.http.get('https://hashi-e420c.firebaseio.com/')
   //     .map(
   //       (response: Response) => {
   //         const recipes: Recipe[] = response.json();

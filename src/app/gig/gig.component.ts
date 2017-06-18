@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Show } from '../shared/show.model';
@@ -9,9 +9,10 @@ import { Song } from '../shared/song.model';
   templateUrl: './gig.component.html',
   styleUrls: ['./gig.component.css']
 })
-export class GigComponent implements OnInit {
+export class GigComponent implements OnInit, OnDestroy {
 
   performer: boolean;
+  shows: FirebaseListObservable<Show[]>;
   show: FirebaseObjectObservable<Show>;
   songs: FirebaseListObservable<Song[]>;
 
@@ -20,8 +21,9 @@ export class GigComponent implements OnInit {
 
   ngOnInit() {
     this.performer = this.authService.performer;
-    this.show = this.db.object('/show');
-    this.songs = this.db.list('/show/songs');
+    this.shows = this.db.list('/shows');
+    this.show = this.db.object('/shows/main');
+    this.songs = this.db.list('/shows/main/songs');
   }
 
   onLogoutClicked() {
@@ -40,4 +42,8 @@ export class GigComponent implements OnInit {
     return this.authService.isPerformer();
   }
 
+
+  ngOnDestroy(): void {
+    this.performer = false;
+  }
 }

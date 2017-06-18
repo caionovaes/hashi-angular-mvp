@@ -34,7 +34,7 @@
 </md-toolbar>
 <div *ngIf="(show | async)?.live; else notLiveDefaultTemplate">
   <md-list>
-    <app-setlist-item *ngFor="let song of songs | async" [performer]="isPerformer()" [song]="song"></app-setlist-item>
+    <app-setlist-item *ngFor="let song of songs | async | sort" [performer]="isPerformer()" [song]="song"></app-setlist-item>
   </md-list>
   <span class="fab-btn">
     <button md-fab>

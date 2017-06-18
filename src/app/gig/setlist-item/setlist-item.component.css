@@ -1,0 +1,11 @@
+.likes {
+  margin: 0 7px;
+}
+
+md-button-toggle {
+  margin: 0 7px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

@@ -1,11 +1,11 @@
-<md-list-item>
+<md-list-item [style.background-color]="getStyle()">
   <h4 md-line>{{song.name}}</h4>
   <span class="spacer"></span>
-  <md-button-toggle disabled="true">
+  <span class="likes">{{song.likes}}</span>
+  <md-button-toggle>
     <md-icon>favorite</md-icon>
   </md-button-toggle>
-  {{song.likes}}
-  <md-button-toggle disabled="true">
+  <md-button-toggle *ngIf="performer">
     <md-icon>check_circle</md-icon>
   </md-button-toggle>
   <p md-line> {{song.artist}}</p>

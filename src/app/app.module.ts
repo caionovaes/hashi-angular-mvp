@@ -26,6 +26,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { SetlistItemComponent } from './gig/setlist-item/setlist-item.component';
 import { AboutComponent } from './about/about.component';
+import { SortPipe } from './shared/sort.pipe';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/gig', pathMatch: 'full'},
@@ -43,7 +44,8 @@ export const routes: Routes = [
     SignupComponent,
     GigComponent,
     SetlistItemComponent,
-    AboutComponent
+    AboutComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,
