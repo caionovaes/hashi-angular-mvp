@@ -11,7 +11,6 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './shared/auth.service';
 import { HeaderComponent } from './auth/header/header.component';
-import { AuthGuard } from './shared/auth-guard.service';
 import {
   MdButtonModule,
   MdButtonToggleModule,
@@ -77,7 +76,7 @@ export const routes: Routes = [
     MdCardModule,
     MdDialogModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService],
   entryComponents: [SetlistRequestDialogComponent],
   bootstrap: [AppComponent]
 })

@@ -19,7 +19,8 @@ export class GigComponent implements OnInit, OnDestroy {
   show: FirebaseObjectObservable<Show>;
   songs: FirebaseListObservable<Song[]>;
 
-  constructor(private db: AngularFireDatabase, private authService: AuthService, private dialog: MdDialog, private router: Router, private snackBar: MdSnackBar) {
+  constructor(private db: AngularFireDatabase, private authService: AuthService,
+              private dialog: MdDialog, private router: Router, private snackBar: MdSnackBar) {
   }
 
   ngOnInit() {
