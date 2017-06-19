@@ -2,10 +2,13 @@
   <h4 md-line>{{song.name}}</h4>
   <span class="spacer"></span>
   <span class="likes">{{song.likes}}</span>
-  <md-button-toggle>
+  <md-button-toggle *ngIf="(liked | async)?.liked" [checked]="true" (click)="toggleSongLiked(false)">
     <md-icon>favorite</md-icon>
   </md-button-toggle>
-  <md-button-toggle *ngIf="performer">
+  <md-button-toggle *ngIf="!(liked | async)?.liked" [checked]="false" (click)="toggleSongLiked(true)">
+    <md-icon>favorite</md-icon>
+  </md-button-toggle>
+  <md-button-toggle *ngIf="performer" [id]="slugified" [checked]="song.played" (click)="toggleSongPlayed()">
     <md-icon>check_circle</md-icon>
   </md-button-toggle>
   <p md-line> {{song.artist}}</p>

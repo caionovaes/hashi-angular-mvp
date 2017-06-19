@@ -9,12 +9,14 @@ export class AuthService implements OnInit, OnDestroy {
 
   token: string;
   performer: boolean;
+  uid: string;
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private snackBar: MdSnackBar) {
   }
 
   ngOnInit(): void {
     this.token = null;
+    this.uid = null;
     this.performer = false;
   }
 
@@ -53,6 +55,8 @@ export class AuthService implements OnInit, OnDestroy {
           if (user.email === 'musico@hashi.com') {
             this.performer = true;
           }
+          this.uid = user.uid;
+          console.log(user.email, user.uid);
           this.getToken();
           this.router.navigate(['/gig']);
         }
@@ -84,6 +88,7 @@ export class AuthService implements OnInit, OnDestroy {
   logout() {
     this.afAuth.auth.signOut();
     this.token = null;
+    this.uid = null;
     this.performer = false;
     this.router.navigate(['/signin']);
   }
@@ -104,6 +109,7 @@ export class AuthService implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.token = null;
+    this.uid = null;
     this.performer = false;
   }
 }

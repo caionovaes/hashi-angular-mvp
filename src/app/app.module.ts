@@ -13,7 +13,13 @@ import { AuthService } from './shared/auth.service';
 import { HeaderComponent } from './auth/header/header.component';
 import { AuthGuard } from './shared/auth-guard.service';
 import {
-  MdButtonModule, MdButtonToggleModule, MdCardModule, MdDialogModule, MdIconModule, MdInputModule, MdListModule,
+  MdButtonModule,
+  MdButtonToggleModule,
+  MdCardModule,
+  MdDialogModule,
+  MdIconModule,
+  MdInputModule,
+  MdListModule,
   MdMenuModule,
   MdSnackBarModule,
   MdToolbarModule
@@ -27,6 +33,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { SetlistItemComponent } from './gig/setlist-item/setlist-item.component';
 import { AboutComponent } from './about/about.component';
 import { SortPipe } from './shared/sort.pipe';
+import { PickerPipe } from './shared/picker.pipe';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/gig', pathMatch: 'full'},
@@ -45,7 +52,8 @@ export const routes: Routes = [
     GigComponent,
     SetlistItemComponent,
     AboutComponent,
-    SortPipe
+    SortPipe,
+    PickerPipe
   ],
   imports: [
     BrowserModule,
