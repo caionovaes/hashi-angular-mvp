@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Info } from './info.model';
+import { Info } from '../models/info.model';
 
 @Pipe({
   name: 'picker'

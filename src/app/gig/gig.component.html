@@ -37,7 +37,7 @@
     <app-setlist-item *ngFor="let song of songs | async | sort" [performer]="isPerformer()" [song]="song"></app-setlist-item>
   </md-list>
   <span class="fab-btn">
-    <button md-fab>
+    <button md-fab (click)="fabClicked()">
       <md-icon>playlist_add</md-icon>
     </button>
   </span>

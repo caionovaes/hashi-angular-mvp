@@ -1,0 +1,13 @@
+<form (ngSubmit)="requestSong(f)" #f="ngForm">
+
+  <md-input-container>
+    <input mdInput placeholder="Musica" id="song" name="song" ngModel>
+  </md-input-container>
+
+  <md-input-container>
+    <input mdInput placeholder="Artista" id="artist" name="artist" ngModel>
+  </md-input-container>
+
+  <button md-raised-button color="accent" type="submit">Pedir</button>
+
+</form>

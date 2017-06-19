@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Song } from '../../shared/song.model';
+import { Song } from '../../shared/models/song.model';
 import slugify from 'slugify';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { AuthService } from '../../shared/auth.service';
 import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
-import { Info } from '../../shared/info.model';
+import { Info } from '../../shared/models/info.model';
 
 @Component({
   selector: 'app-setlist-item',
@@ -23,7 +23,6 @@ export class SetlistItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.performer = true;
     this.slugified = slugify((this.song.name + ' ' + this.song.artist).toLowerCase());
     this.liked = this.db.object('/shows/main/attendees/' + this.authService.uid + '/' + this.slugified);
   }
@@ -34,11 +33,18 @@ export class SetlistItemComponent implements OnInit {
       this.snackBar.open('Quer interagir? Massa! Só se cadastrar e entrar.', '', {duration: 2000});
     } else {
       if (liked) {
-        this.db.app.database().ref('shows/main/songs/' + this.slugified).update({likes: (this.song.likes + 1)})
+        this.db.app.database().ref('shows/main/songs')
+          .child(this.slugified)
+          .update({likes: (this.song.likes + 1)})
       } else {
-        this.db.app.database().ref('shows/main/songs/' + this.slugified).update({likes: (this.song.likes - 1)})
+        this.db.app.database().ref('shows/main/songs')
+          .child(this.slugified)
+          .update({likes: (this.song.likes - 1)})
       }
-      this.db.app.database().ref('shows/main/attendees/' + this.authService.uid + '/' + this.slugified).update({liked: liked});
+      this.db.app.database().ref('shows/main/attendees')
+        .child(this.authService.uid)
+        .child(this.slugified)
+        .set(new Info(this.slugified, liked));
     }
   }
 
@@ -47,7 +53,9 @@ export class SetlistItemComponent implements OnInit {
       this.router.navigate(['/signin']);
       this.snackBar.open('Quer interagir? Massa! Só se cadastrar e entrar.', '', {duration: 2000});
     } else {
-      this.db.app.database().ref('shows/main/songs/' + this.slugified).update({played: !this.song.played});
+      this.db.app.database().ref('shows/main/songs')
+        .child(this.slugified)
+        .update({played: !this.song.played});
     }
   }
 

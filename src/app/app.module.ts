@@ -32,8 +32,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { SetlistItemComponent } from './gig/setlist-item/setlist-item.component';
 import { AboutComponent } from './about/about.component';
-import { SortPipe } from './shared/sort.pipe';
-import { PickerPipe } from './shared/picker.pipe';
+import { SortPipe } from './shared/pipes/sort.pipe';
+import { PickerPipe } from './shared/pipes/picker.pipe';
+import { SetlistRequestDialogComponent } from './gig/setlist-request-dialog/setlist-request-dialog.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/gig', pathMatch: 'full'},
@@ -53,7 +54,8 @@ export const routes: Routes = [
     SetlistItemComponent,
     AboutComponent,
     SortPipe,
-    PickerPipe
+    PickerPipe,
+    SetlistRequestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,7 @@ export const routes: Routes = [
     MdDialogModule
   ],
   providers: [AuthService, AuthGuard],
-  entryComponents: [AboutComponent],
+  entryComponents: [SetlistRequestDialogComponent],
   bootstrap: [AppComponent]
 })
 

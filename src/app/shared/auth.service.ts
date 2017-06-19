@@ -56,7 +56,6 @@ export class AuthService implements OnInit, OnDestroy {
             this.performer = true;
           }
           this.uid = user.uid;
-          console.log(user.email, user.uid);
           this.getToken();
           this.router.navigate(['/gig']);
         }
