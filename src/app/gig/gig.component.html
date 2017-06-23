@@ -24,6 +24,14 @@
         <md-icon>play_arrow</md-icon>
         <span>Começar show</span>
       </a>
+      <a *ngIf="(show | async)?.dynamic" md-menu-item (click)="toggleDynamic(false)">
+        <md-icon>lock</md-icon>
+        <span>Publico só pode votar</span>
+      </a>
+      <a *ngIf="!(show | async)?.dynamic" md-menu-item (click)="toggleDynamic(true)">
+        <md-icon>lock_open</md-icon>
+        <span>Publico pode pedir e votar</span>
+      </a>
     </ng-template>
     <a md-menu-item routerLink="/about">
       <md-icon>info</md-icon>
@@ -37,7 +45,7 @@
     <app-setlist-item *ngFor="let song of songs | async | sort:performer" [performer]="isPerformer()"
                       [song]="song"></app-setlist-item>
   </md-list>
-  <span *ngIf="(show | async)?.dynamic" class="fab-btn">
+  <span *ngIf="(show | async)?.dynamic || performer" class="fab-btn">
     <button md-fab (click)="fabClicked()">
       <md-icon>playlist_add</md-icon>
     </button>

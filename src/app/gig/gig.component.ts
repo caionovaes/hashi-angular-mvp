@@ -38,6 +38,10 @@ export class GigComponent implements OnInit, OnDestroy {
     this.show.update({live: live});
   }
 
+  toggleDynamic(dynamic: boolean) {
+    this.show.update({dynamic: dynamic});
+  }
+
   fabClicked() {
     if (this.authService.isAuthenticated()) {
       this.dialog.open(SetlistRequestDialogComponent);
