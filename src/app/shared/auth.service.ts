@@ -22,11 +22,17 @@ export class AuthService implements OnInit, OnDestroy {
 
   signupUser(email: string, password: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(() => {
-          this.snackBar.open('Conta criada com sucesso.', '', {duration: 1000});
-          this.router.navigate(['/signin']);
+      .then((user: firebase.User) => {
+        this.snackBar.open('Conta criada com sucesso.', '', {duration: 1500});
+
+        if (user.email === 'musico@hashi.com') {
+          this.performer = true;
         }
-      )
+
+        this.uid = user.uid;
+        this.getToken();
+        this.router.navigate(['/gig']);
+      })
       .catch(
         error => {
           let message = 'O que está acontecendo?';
@@ -50,8 +56,7 @@ export class AuthService implements OnInit, OnDestroy {
 
   signinUser(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then(
-        (user: firebase.User) => {
+      .then((user: firebase.User) => {
           if (user.email === 'musico@hashi.com') {
             this.performer = true;
           }
