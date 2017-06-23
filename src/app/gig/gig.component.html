@@ -32,17 +32,26 @@
   </md-menu>
   Hashi
 </md-toolbar>
-<div *ngIf="(show | async)?.live; else notLiveDefaultTemplate">
-  <md-list>
-    <app-setlist-item *ngFor="let song of songs | async | sort" [performer]="isPerformer()" [song]="song"></app-setlist-item>
+<div *ngIf="(show | async)?.live; else notLiveTemplate">
+  <md-list *ngIf="(songs | async | sort:performer)?.length > 0; else noSongsTemplate">
+    <app-setlist-item *ngFor="let song of songs | async | sort:performer" [performer]="isPerformer()"
+                      [song]="song"></app-setlist-item>
   </md-list>
-  <span class="fab-btn">
+  <span *ngIf="(show | async)?.dynamic" class="fab-btn">
     <button md-fab (click)="fabClicked()">
       <md-icon>playlist_add</md-icon>
     </button>
   </span>
 </div>
-<ng-template #notLiveDefaultTemplate>
+<ng-template #noSongsTemplate class="default-template">
+  <md-card *ngIf="(show | async)?.dynamic" class="default-template">
+    O show já começou mas ainda <br><br> não houve pedidos. <br><br> Seja o primeiro a pedir uma música!
+  </md-card>
+  <md-card *ngIf="!(show | async)?.dynamic" class="default-template">
+    Opa! O show começou mas ainda coloquei minhas músicas. <br><br> Espere um pouco para poder votar! :)
+  </md-card>
+</ng-template>
+<ng-template #notLiveTemplate>
   <md-card class="default-template">
     O show ainda não começou, <br><br> aguarde o sinal do músico :)
   </md-card>

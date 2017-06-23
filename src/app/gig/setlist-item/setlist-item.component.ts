@@ -49,18 +49,17 @@ export class SetlistItemComponent implements OnInit {
   }
 
   toggleSongPlayed() {
-    if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['/signin']);
-      this.snackBar.open('Quer interagir? Massa! Só se cadastrar e entrar.', '', {duration: 2000});
-    } else {
-      this.db.app.database().ref('shows/main/songs')
-        .child(this.slugified)
-        .update({played: !this.song.played});
-    }
+    this.db.app.database().ref('shows/main/songs').child(this.slugified).update({played: !this.song.played});
+  }
+
+  toggleSongActive() {
+    this.db.app.database().ref('shows/main/songs').child(this.slugified).update({active: !this.song.active});
   }
 
   getStyle() {
-    if (this.song.played) {
+    if (!this.song.active) {
+      return 'gray'
+    } else if (this.song.played) {
       return 'lightgray';
     } else {
       return '';

@@ -43,7 +43,7 @@ export class GigComponent implements OnInit, OnDestroy {
       this.dialog.open(SetlistRequestDialogComponent);
     } else {
       this.router.navigate(['/signin']);
-      this.snackBar.open('Quer interagir? Massa! Só se cadastrar e entrar.', '', {duration: 2000});
+      this.snackBar.open('Quer interagir? Massa! Só se cadastrar e entrar.', '', {duration: 3000});
     }
   }
 

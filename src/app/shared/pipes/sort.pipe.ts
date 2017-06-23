@@ -6,8 +6,14 @@ import { Song } from '../models/song.model';
 })
 export class SortPipe implements PipeTransform {
 
-  transform(value: Song[]): any {
-    return this.sort(value);
+  transform(value: Song[], args: boolean): any {
+    let songs: Song[] = this.sort(value);
+
+    if (!args) {
+      songs = songs.filter(song => song.active);
+    }
+
+    return songs;
   }
 
   sort(items: Song[]): Song[] {

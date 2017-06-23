@@ -11,6 +11,9 @@
   <md-button-toggle *ngIf="performer" [id]="slugified" [checked]="song.played" (click)="toggleSongPlayed()">
     <md-icon>check_circle</md-icon>
   </md-button-toggle>
+  <md-button-toggle *ngIf="performer" [id]="slugified" [checked]="!song.active" (click)="toggleSongActive()">
+    <md-icon>delete</md-icon>
+  </md-button-toggle>
   <p md-line> {{song.artist}}</p>
 </md-list-item>
 

@@ -27,16 +27,21 @@ export class SetlistRequestDialogComponent implements OnInit {
       'value',
       snapshot => {
         let song: Song = snapshot.val();
+
         if (song) {
-          this.snackBar.open(song.name + ' de ' + song.artist + ' já existe.', '', {duration: 2000});
+          if (!song.active) {
+            this.snackBar.open('Desculpe mas ' + song.name + ' de ' + song.artist + ' foi removida pelo artista.', '', {duration: 3000});
+          } else {
+            this.snackBar.open(song.name + ' de ' + song.artist + ' já existe.', '', {duration: 3000});
+          }
         } else {
-          song = new Song(name, artist, 0, false);
+          song = new Song(name, artist, 0, false, true);
           this.db.app.database().ref('shows/main/songs').child(slug).set(song);
           this.snackBar.open(song.name + ' de ' + song.artist + ' foi adicionada.', '', {duration: 2000});
         }
+
+        this.dialogRef.close();
       }
     );
-
-    this.dialogRef.close();
   }
 }
