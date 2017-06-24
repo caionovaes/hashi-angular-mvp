@@ -7,6 +7,7 @@ import { Song } from '../models/song.model';
 export class SortPipe implements PipeTransform {
 
   transform(value: Song[], args: boolean): any {
+
     let songs: Song[] = this.sort(value);
 
     if (!args) {
@@ -17,7 +18,10 @@ export class SortPipe implements PipeTransform {
   }
 
   sort(items: Song[]): Song[] {
-    return this.divide(items);
+    if (items) {
+      return this.divide(items);
+    }
+    return [];
   }
 
   divide(items: Song[]): Song[] {

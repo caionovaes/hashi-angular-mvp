@@ -4,6 +4,7 @@ form {
 
 md-input-container {
   margin-top: 15px;
+  width: 100%;
 }
 
 button {

@@ -44,7 +44,7 @@
   </md-menu>
   Hashi
 </md-toolbar>
-<div *ngIf="(show | async)?.live; else notLiveTemplate">
+<div *ngIf="performer || (show | async)?.live; else notLiveTemplate">
   <md-list *ngIf="(songs | async | sort:performer)?.length > 0; else noSongsTemplate">
     <app-setlist-item *ngFor="let song of songs | async | sort:performer" [performer]="isPerformer()"
                       [song]="song"></app-setlist-item>
