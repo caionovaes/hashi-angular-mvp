@@ -6,6 +6,7 @@ import { Song } from '../shared/models/song.model';
 import { MdDialog, MdSnackBar } from '@angular/material';
 import { SetlistRequestDialogComponent } from './setlist-request-dialog/setlist-request-dialog.component';
 import { Router } from '@angular/router';
+import { ShowArchiveDialogComponent } from './show-archive-dialog/show-archive-dialog.component';
 
 @Component({
   selector: 'app-gig',
@@ -40,6 +41,10 @@ export class GigComponent implements OnInit, OnDestroy {
 
   toggleDynamic(dynamic: boolean) {
     this.show.update({dynamic: dynamic});
+  }
+
+  archiveShow() {
+    this.dialog.open(ShowArchiveDialogComponent);
   }
 
   fabClicked() {

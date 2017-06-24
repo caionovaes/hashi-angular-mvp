@@ -34,6 +34,7 @@ import { AboutComponent } from './about/about.component';
 import { SortPipe } from './shared/pipes/sort.pipe';
 import { PickerPipe } from './shared/pipes/picker.pipe';
 import { SetlistRequestDialogComponent } from './gig/setlist-request-dialog/setlist-request-dialog.component';
+import { ShowArchiveDialogComponent } from './gig/show-archive-dialog/show-archive-dialog.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/gig', pathMatch: 'full'},
@@ -54,7 +55,8 @@ export const routes: Routes = [
     AboutComponent,
     SortPipe,
     PickerPipe,
-    SetlistRequestDialogComponent
+    SetlistRequestDialogComponent,
+    ShowArchiveDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,7 @@ export const routes: Routes = [
     MdDialogModule
   ],
   providers: [AuthService],
-  entryComponents: [SetlistRequestDialogComponent],
+  entryComponents: [SetlistRequestDialogComponent, ShowArchiveDialogComponent],
   bootstrap: [AppComponent]
 })
 
