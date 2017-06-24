@@ -1,5 +1,6 @@
+declare let ga: Function;
 import { Component } from '@angular/core';
-import { Angulartics2GoogleAnalytics, Angulartics2GoogleTagManager } from 'angulartics2';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,13 @@ import { Angulartics2GoogleAnalytics, Angulartics2GoogleTagManager } from 'angul
 })
 export class AppComponent {
 
-  constructor(angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+  constructor(public router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        ga('set', 'page', event.urlAfterRedirects);
+        ga('send', 'pageview');
+      }
+    });
   }
 
 }

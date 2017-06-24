@@ -6,9 +6,7 @@ import { AuthService } from '../../shared/auth.service';
 import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { Info } from '../../shared/models/info.model';
-import { Angulartics2 } from 'angulartics2';
-import { GtmEvent } from '../../shared/models/gtm-event.model';
-import { GtmProperties } from '../../shared/models/gtm-properties.model';
+import { GoogleAnalyticsEventsService } from '../../shared/google-analytics-events.service';
 
 @Component({
   selector: 'app-setlist-item',
@@ -23,7 +21,7 @@ export class SetlistItemComponent implements OnInit {
   slugified: string;
 
   constructor(private db: AngularFireDatabase, private authService: AuthService,
-              private router: Router, private snackBar: MdSnackBar, private angulartics2: Angulartics2) {
+              private router: Router, private snackBar: MdSnackBar, private googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
   }
 
   ngOnInit() {
@@ -40,12 +38,12 @@ export class SetlistItemComponent implements OnInit {
         this.db.app.database().ref('shows/main/songs')
           .child(this.slugified)
           .update({likes: (this.song.likes + 1)});
-        this.angulartics2.eventTrack.next(new GtmEvent('Like', new GtmProperties('Songs', this.slugified, '')));
+        this.googleAnalyticsEventsService.emitEvent('Like', 'Songs', this.slugified);
       } else {
         this.db.app.database().ref('shows/main/songs')
           .child(this.slugified)
           .update({likes: (this.song.likes - 1)});
-        this.angulartics2.eventTrack.next(new GtmEvent('Unlike', new GtmProperties('Songs', this.slugified, '')));
+        this.googleAnalyticsEventsService.emitEvent('Unlike', 'Songs', this.slugified);
       }
       this.db.app.database().ref('shows/main/attendees')
         .child(this.authService.uid)
@@ -56,19 +54,19 @@ export class SetlistItemComponent implements OnInit {
 
   toggleSongPlayed() {
     this.db.app.database().ref('shows/main/songs').child(this.slugified).update({played: !this.song.played});
-    if(this.song.played) {
-      this.angulartics2.eventTrack.next(new GtmEvent('Unplay', new GtmProperties('Songs', this.slugified, '')));
+    if (this.song.played) {
+      this.googleAnalyticsEventsService.emitEvent('Unplay', 'Songs', this.slugified);
     } else {
-      this.angulartics2.eventTrack.next(new GtmEvent('Play', new GtmProperties('Songs', this.slugified, '')));
+      this.googleAnalyticsEventsService.emitEvent('Play', 'Songs', this.slugified);
     }
   }
 
   toggleSongActive() {
     this.db.app.database().ref('shows/main/songs').child(this.slugified).update({active: !this.song.active});
-    if(this.song.active) {
-      this.angulartics2.eventTrack.next(new GtmEvent('Deactivate', new GtmProperties('Songs', this.slugified, '')));
+    if (this.song.active) {
+      this.googleAnalyticsEventsService.emitEvent('Deactivate', 'Songs', this.slugified);
     } else {
-      this.angulartics2.eventTrack.next(new GtmEvent('Activate', new GtmProperties('Songs', this.slugified, '')));
+      this.googleAnalyticsEventsService.emitEvent('Activate', 'Songs', this.slugified);
     }
   }
 

@@ -4,9 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Song } from '../../shared/models/song.model';
 import { AngularFireDatabase } from 'angularfire2/database';
 import slugify from 'slugify';
-import { Angulartics2 } from 'angulartics2';
-import { GtmEvent } from '../../shared/models/gtm-event.model';
-import { GtmProperties } from '../../shared/models/gtm-properties.model';
+import { GoogleAnalyticsEventsService } from '../../shared/google-analytics-events.service';
 
 @Component({
   selector: 'app-setlist-request-dialog',
@@ -16,7 +14,7 @@ import { GtmProperties } from '../../shared/models/gtm-properties.model';
 export class SetlistRequestDialogComponent implements OnInit {
 
   constructor(public dialogRef: MdDialogRef<SetlistRequestDialogComponent>, private db: AngularFireDatabase,
-              private snackBar: MdSnackBar, private angulartics2: Angulartics2) {
+              private snackBar: MdSnackBar, private googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
   }
 
   ngOnInit() {
@@ -35,16 +33,14 @@ export class SetlistRequestDialogComponent implements OnInit {
         if (song) {
           if (!song.active) {
             this.snackBar.open('Desculpe mas ' + song.name + ' de ' + song.artist + ' foi removida pelo artista.', '', {duration: 3000});
-            this.angulartics2.eventTrack.next(new GtmEvent('Request', new GtmProperties('Songs', slug, 'Blocked')));
           } else {
             this.snackBar.open(song.name + ' de ' + song.artist + ' já existe.', '', {duration: 3000});
-            this.angulartics2.eventTrack.next(new GtmEvent('Request', new GtmProperties('Songs', slug, 'Conflict')));
           }
         } else {
           song = new Song(name, artist, 0, false, true);
           this.db.app.database().ref('shows/main/songs').child(slug).set(song);
           this.snackBar.open(song.name + ' de ' + song.artist + ' foi adicionada.', '', {duration: 2000});
-          this.angulartics2.eventTrack.next(new GtmEvent('Request', new GtmProperties('Songs', slug, 'Success')));
+          this.googleAnalyticsEventsService.emitEvent('Request', 'Songs', slug);
         }
 
         this.dialogRef.close();

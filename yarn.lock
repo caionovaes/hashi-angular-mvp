@@ -157,6 +157,10 @@
     magic-string "^0.19.0"
     source-map "^0.5.6"
 
+"@types/google.analytics@0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@types/google.analytics/-/google.analytics-0.0.33.tgz#98e704ed6052214ea0b5fd30958d4c3d70ea0479"
+
 "@types/jasmine@2.5.45":
   version "2.5.45"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.45.tgz#58928a621d014ce6ab59c5a9c41071f7328b0ca9"
@@ -256,10 +260,6 @@ amdefine@>=0.0.4:
 angularfire2@^4.0.0-rc0:
   version "4.0.0-rc0"
   resolved "https://registry.yarnpkg.com/angularfire2/-/angularfire2-4.0.0-rc0.tgz#071bda9a51774b6d9e7ad8e8fd4486dbd3b8032b"
-
-angulartics2@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-2.2.2.tgz#a4fe1a007b87299b3818811c1f3490756792fd8f"
 
 ansi-escapes@^2.0.0:
   version "2.0.0"
