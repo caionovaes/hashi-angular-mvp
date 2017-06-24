@@ -6,6 +6,9 @@ import { AuthService } from '../../shared/auth.service';
 import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { Info } from '../../shared/models/info.model';
+import { Angulartics2 } from 'angulartics2';
+import { GtmEvent } from '../../shared/models/gtm-event.model';
+import { GtmProperties } from '../../shared/models/gtm-properties.model';
 
 @Component({
   selector: 'app-setlist-item',
@@ -19,7 +22,8 @@ export class SetlistItemComponent implements OnInit {
   liked: FirebaseObjectObservable<Info>;
   slugified: string;
 
-  constructor(private db: AngularFireDatabase, private authService: AuthService, private router: Router, private snackBar: MdSnackBar) {
+  constructor(private db: AngularFireDatabase, private authService: AuthService,
+              private router: Router, private snackBar: MdSnackBar, private angulartics2: Angulartics2) {
   }
 
   ngOnInit() {
@@ -35,11 +39,13 @@ export class SetlistItemComponent implements OnInit {
       if (liked) {
         this.db.app.database().ref('shows/main/songs')
           .child(this.slugified)
-          .update({likes: (this.song.likes + 1)})
+          .update({likes: (this.song.likes + 1)});
+        this.angulartics2.eventTrack.next(new GtmEvent('Like', new GtmProperties('Songs', this.slugified, '')));
       } else {
         this.db.app.database().ref('shows/main/songs')
           .child(this.slugified)
-          .update({likes: (this.song.likes - 1)})
+          .update({likes: (this.song.likes - 1)});
+        this.angulartics2.eventTrack.next(new GtmEvent('Unlike', new GtmProperties('Songs', this.slugified, '')));
       }
       this.db.app.database().ref('shows/main/attendees')
         .child(this.authService.uid)
@@ -50,10 +56,20 @@ export class SetlistItemComponent implements OnInit {
 
   toggleSongPlayed() {
     this.db.app.database().ref('shows/main/songs').child(this.slugified).update({played: !this.song.played});
+    if(this.song.played) {
+      this.angulartics2.eventTrack.next(new GtmEvent('Unplay', new GtmProperties('Songs', this.slugified, '')));
+    } else {
+      this.angulartics2.eventTrack.next(new GtmEvent('Play', new GtmProperties('Songs', this.slugified, '')));
+    }
   }
 
   toggleSongActive() {
     this.db.app.database().ref('shows/main/songs').child(this.slugified).update({active: !this.song.active});
+    if(this.song.active) {
+      this.angulartics2.eventTrack.next(new GtmEvent('Deactivate', new GtmProperties('Songs', this.slugified, '')));
+    } else {
+      this.angulartics2.eventTrack.next(new GtmEvent('Activate', new GtmProperties('Songs', this.slugified, '')));
+    }
   }
 
   getStyle() {
