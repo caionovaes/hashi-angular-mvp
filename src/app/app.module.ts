@@ -35,6 +35,7 @@ import { SortPipe } from './shared/pipes/sort.pipe';
 import { PickerPipe } from './shared/pipes/picker.pipe';
 import { SetlistRequestDialogComponent } from './gig/setlist-request-dialog/setlist-request-dialog.component';
 import { ShowArchiveDialogComponent } from './gig/show-archive-dialog/show-archive-dialog.component';
+import { Angulartics2GoogleTagManager, Angulartics2Module } from 'angulartics2';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/gig', pathMatch: 'full'},
@@ -76,7 +77,8 @@ export const routes: Routes = [
     MdMenuModule,
     MdIconModule,
     MdCardModule,
-    MdDialogModule
+    MdDialogModule,
+    Angulartics2Module.forRoot([Angulartics2GoogleTagManager])
   ],
   providers: [AuthService],
   entryComponents: [SetlistRequestDialogComponent, ShowArchiveDialogComponent],
