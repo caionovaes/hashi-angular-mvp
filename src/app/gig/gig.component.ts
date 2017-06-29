@@ -67,4 +67,8 @@ export class GigComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.performer = false;
   }
+
+  onHelpClicked() {
+
+  }
 }

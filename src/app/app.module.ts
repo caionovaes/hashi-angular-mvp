@@ -36,13 +36,15 @@ import { PickerPipe } from './shared/pipes/picker.pipe';
 import { SetlistRequestDialogComponent } from './gig/setlist-request-dialog/setlist-request-dialog.component';
 import { ShowArchiveDialogComponent } from './gig/show-archive-dialog/show-archive-dialog.component';
 import { GoogleAnalyticsEventsService } from './shared/google-analytics-events.service';
+import { HelpComponent } from './help/help.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/gig', pathMatch: 'full'},
   {path: 'gig', component: GigComponent},
   {path: 'signin', component: SigninComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'about', component: AboutComponent}
+  {path: 'about', component: AboutComponent},
+  {path: 'help', component: HelpComponent}
 ];
 
 @NgModule({
@@ -57,7 +59,8 @@ export const routes: Routes = [
     SortPipe,
     PickerPipe,
     SetlistRequestDialogComponent,
-    ShowArchiveDialogComponent
+    ShowArchiveDialogComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

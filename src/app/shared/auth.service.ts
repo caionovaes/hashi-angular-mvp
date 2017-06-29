@@ -25,7 +25,7 @@ export class AuthService implements OnInit, OnDestroy {
       .then((user: firebase.User) => {
         this.snackBar.open('Conta criada com sucesso.', '', {duration: 1500});
 
-        if (user.email === 'musico@hashi.com') {
+        if (user.email === 'musico@hashi.com' || user.email === 'caio@hashi.com') {
           this.performer = true;
         }
 

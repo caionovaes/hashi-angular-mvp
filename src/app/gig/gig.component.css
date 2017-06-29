@@ -9,3 +9,7 @@
   margin: 10px 0;
   padding: 20px;
 }
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}

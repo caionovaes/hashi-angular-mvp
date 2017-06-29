@@ -42,7 +42,10 @@
       <span>Sobre</span>
     </a>
   </md-menu>
-  Hashi
+  <span class="toolbar-spacer"></span>
+  <a md-icon-button routerLink="/help">
+    <md-icon>help_outline</md-icon>
+  </a>
 </md-toolbar>
 <div *ngIf="performer || (show | async)?.live; else notLiveTemplate">
   <md-list *ngIf="(songs | async | sort:performer)?.length > 0; else noSongsTemplate">
