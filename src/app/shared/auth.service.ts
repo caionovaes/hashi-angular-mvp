@@ -57,7 +57,7 @@ export class AuthService implements OnInit, OnDestroy {
   signinUser(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user: firebase.User) => {
-          if (user.email === 'musico@hashi.com') {
+          if (user.email === 'musico@hashi.com' || user.email === 'caio@hashi.com') {
             this.performer = true;
           }
           this.uid = user.uid;
