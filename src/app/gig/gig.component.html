@@ -53,6 +53,8 @@
   <md-list *ngIf="(songs | async | sort:performer)?.length > 0; else noSongsTemplate">
     <app-setlist-item *ngFor="let song of songs | async | sort:performer" [performer]="isPerformer()"
                       [song]="song"></app-setlist-item>
+    <md-list-item></md-list-item>
+    <md-list-item></md-list-item>
   </md-list>
   <span *ngIf="(show | async)?.dynamic || performer" class="fab-btn">
     <button md-fab (click)="fabClicked()">
