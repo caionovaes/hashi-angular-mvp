@@ -7,6 +7,7 @@ import { MdDialog, MdSnackBar } from '@angular/material';
 import { SetlistRequestDialogComponent } from './setlist-request-dialog/setlist-request-dialog.component';
 import { Router } from '@angular/router';
 import { ShowArchiveDialogComponent } from './show-archive-dialog/show-archive-dialog.component';
+import { GoogleAnalyticsEventsService } from '../shared/google-analytics-events.service';
 
 @Component({
   selector: 'app-gig',
@@ -21,7 +22,8 @@ export class GigComponent implements OnInit, OnDestroy {
   songs: FirebaseListObservable<Song[]>;
 
   constructor(private db: AngularFireDatabase, private authService: AuthService,
-              private dialog: MdDialog, private router: Router, private snackBar: MdSnackBar) {
+              private dialog: MdDialog, private router: Router, private snackBar: MdSnackBar,
+              private googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
   }
 
   ngOnInit() {
@@ -68,7 +70,8 @@ export class GigComponent implements OnInit, OnDestroy {
     this.performer = false;
   }
 
-  onHelpClicked() {
-
+  onInstagramClicked() {
+    this.googleAnalyticsEventsService.emitEvent('Instagram', 'Artist', 'Dimitria');
+    window.location.href = 'https://www.instagram.com/heydimi/'
   }
 }

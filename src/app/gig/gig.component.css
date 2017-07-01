@@ -13,3 +13,9 @@
 .toolbar-spacer {
   flex: 1 1 auto;
 }
+
+.instagram-icon {
+  width: 26px;
+  height: 26px;
+  margin-right: 2px;
+}
